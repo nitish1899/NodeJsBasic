@@ -37,6 +37,7 @@ const fs= require('fs');
                 }
                 res.statusCode=302;
                 res.setHeader('Location', '/');
+
                 return res.end();
             });
         });
@@ -62,7 +63,6 @@ const fs= require('fs');
 };
 
 //module.exports = requestHandler;
-
 // module.exports = {
 //     handler: requestHandler,
 //     sometext:"Some Hard Coded Text"
