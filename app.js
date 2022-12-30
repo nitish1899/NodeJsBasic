@@ -1,4 +1,4 @@
-const http = require('http');
+/*const http = require('http');
 
 const express = require('express');
 
@@ -17,3 +17,35 @@ app.use((req,res, next)=> {
 
 const server = http.createServer(app);
 server.listen(3000);
+
+*/
+
+const express = require('express');
+const bodyParser = require('body-parser');
+
+const app = express();
+
+app.use(bodyParser.urlencoded({extended: false}));
+
+// multiple path filter
+// app.use('/', (req,res, next)=> {
+//     console.log('This always runs');
+//    next();
+// });
+
+app.use('/add-product', (req,res, next)=> {
+    //console.log('In another2.8 middleware!');
+    res.send('<form action="/product" method="POST"><input type="text" name="title"><input type="number" name="size"><button type="submit"> Add Product </buttom></form>');
+});
+
+app.use('/product', (req,res, next)=> {
+    console.log(req.body);
+    res.redirect('/');
+});
+
+app.use('/', (req,res, next)=> {
+    //console.log('In another middleware!');
+   res.send('<h1> Hello from Express js </h1>'); 
+});
+
+app.listen(3000);
