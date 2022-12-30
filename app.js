@@ -11,7 +11,8 @@ app.use((req,res, next)=> {
 
 app.use((req,res, next)=> {
     console.log('In another middleware!');
-   res.send('<h1>Hello from Node.JS</h1>');
+   res.send('<h1> hello to node js </h1>'); // Content-Type: text/html; charset=utf-8
+   //res.send('{ key1: value }'); // Content-Type: text/html; charset=utf-8
 });
 
 const server = http.createServer(app);
