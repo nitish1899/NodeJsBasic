@@ -21,11 +21,24 @@ server.listen(3000);
 */
 
 const express = require('express');
+
 const bodyParser = require('body-parser');
 
 const app = express();
 
+const adminRoutes = require('./routes/admin');
+const shopRoutes = require('./routes/shop');
+
 app.use(bodyParser.urlencoded({extended: false}));
+
+app.use('/admin', adminRoutes);
+app.use('/shop',shopRoutes);
+
+app.use((req,res,next) =>{
+    res.status(404).send('<h1>Page Not Found</h1>');
+});
+
+app.listen(3000);
 
 // multiple path filter
 // app.use('/', (req,res, next)=> {
@@ -33,19 +46,26 @@ app.use(bodyParser.urlencoded({extended: false}));
 //    next();
 // });
 
-app.use('/add-product', (req,res, next)=> {
-    //console.log('In another2.8 middleware!');
-    res.send('<form action="/product" method="POST"><input type="text" name="title"><input type="number" name="size"><button type="submit"> Add Product </buttom></form>');
-});
+// only for get request
+// app.get('/product', (req,res, next)=> {
+//     console.log(req.body);
+//     res.redirect('/');
+// });
 
-app.use('/product', (req,res, next)=> {
-    console.log(req.body);
-    res.redirect('/');
-});
+// only for post request
+// app.post('/product', (req,res, next)=> {
+//     console.log(req.body);
+//     res.redirect('/');
+// });
 
-app.use('/', (req,res, next)=> {
-    //console.log('In another middleware!');
-   res.send('<h1> Hello from Express js </h1>'); 
-});
+// only for delete request
+// app.delete('/product', (req,res, next)=> {
+//     console.log(req.body);
+//     res.redirect('/');
+// });
 
-app.listen(3000);
+// only for patch/put request
+// app.patch('/product', (req,res, next)=> {
+//     console.log(req.body);
+//     res.redirect('/');
+// });
